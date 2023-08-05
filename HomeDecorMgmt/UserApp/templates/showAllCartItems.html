@@ -1,0 +1,78 @@
+{%extends "master.html"%}
+
+{%block "content"%}
+
+<script type="text/javascript">
+    function increment(data)
+    {
+        //alert("increment"+data)
+        var result = document.getElementById(data);
+        var num = parseInt(result.value);
+        if(num<5)
+        {
+            num += 1;
+        }
+        result.value = num;  
+    }
+
+    function decrement(data)
+    {
+        //alert("decrment"+data)
+        var result = document.getElementById(data);
+        var num = parseInt(result.value);
+        if(num>1)
+        {
+            num -= 1;
+        }
+        result.value = num; 
+        
+    }
+</script>
+
+<h1>All Cart Items</h1>
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> 
+        {{message}}
+      </div>
+    {% endfor %}
+{% endif %}
+  
+
+<table class="table">
+    <tr><th>Product Name</th>
+    <th>Price</th>
+    <th>Image</th>
+    <th>Quantity</th>
+    <th>Sub Total </th></tr>
+        {%for item in items%}
+        <tr>
+            <form method="post">
+                {%csrf_token%}
+                <input type="hidden" name="product_id" value="{{item.id}}"/>
+        <td>{{item.product.product_name}}</td>
+        <td>{{item.product.price}}</td>
+        <td><img src="{{item.product.image.url}}" 
+            style="height: 80px;width: 80px;"/></td>
+        <td><button type="button" class="button btn-warning"
+             onclick="decrement('qty{{item.product.id}}')">-</button>
+            <input type="text" id="qty{{item.product.id}}" name="qty" value="{{item.qty}}" readonly/>
+            <button type="button" class="button btn-warning"
+             onclick="increment('qty{{item.product.id}}')">+</button></td>
+        <td>{%widthratio item.product.price 1 item.qty%}</td>
+        <td><button type="submit" class="button btn-success" name="action" value="update">Update</button>
+            <button type="submit" class="button btn-success" name="action" value="remove">Remove</button></td>
+        </form>
+    </tr>
+    {%endfor%}
+</table>
+<hr/>
+<h2>Total Amount: {{request.session.total}}</h2>
+    <hr/>
+    <center>
+        <a href="/MakePayment">Proceed To Make Payment</a>
+    </center>
+{%endblock%}
