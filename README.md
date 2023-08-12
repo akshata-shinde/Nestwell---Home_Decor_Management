@@ -2,9 +2,6 @@
 Experience the perfect blend of Python, Django, HTML, CSS, and JavaScript in this innovative project designed to simplify and enhance your home decorating experience. With NestWell, decorating your dream home becomes a breeze!. Manage all your home decor ideas, inspirations, and projects in one central place, keeping everything neat and tidy. 
 
 
-#[Have a Look] (http://127.0.0.1:8000/)
-
-
 #Output
 
 ![homepg](https://github.com/akshata-shinde/Nestwell---Home_Decor_Management/assets/64701655/2c13d3c2-1b54-4a1a-bf15-c577b561f9f4)
